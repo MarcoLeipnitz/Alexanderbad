@@ -12,7 +12,7 @@
 			.dot {
 				  height: min(25vw, 60vh);
 				  width: auto;
-          aspect-ratio: 1 / 1;
+         		  aspect-ratio: 1 / 1;
 				  right: 0;
 				  left: calc(-1 * min(25vw, 60vh)/2);
 				  top: calc(-1 * min(25vw, 60vh)/2);
@@ -235,6 +235,10 @@
       function setupinfo(){
         let infohead = "[InfoTitle]";
         let infotext = "[InfoText]";
+
+		infohead = "Wartungsphase!"
+		infotext = "Sehr geehrte Badegäste,<br> bevor es in die neue Saison geht müssen auf der Webseite noch Wartungsarbeiten vorgenommen werden<br><br>Sobald es nähere Informationen zur Eröffnung der Badesaision 2024 gibt, werden sie diese hier einsehen können.<br><br>Ihr Alexanderbad Team"
+
         document.getElementById("infohead").innerText = infohead;
         document.getElementById("infotext").innerHTML = infotext;
         if(!(infohead === "[InfoTitle]" && infotext === "[InfoText]")){
