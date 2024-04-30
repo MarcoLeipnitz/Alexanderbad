@@ -152,6 +152,7 @@
 		</div>
     
     <script>    
+	  const serverURL = "http://localhost:8081";
       let installprompt;
       window.addEventListener('beforeinstallprompt', (e) => {
           e.preventDefault();
@@ -247,7 +248,7 @@
       }
 
       function refreshData() {
-        fetch('https://alexanderbad.de/getTemp', {
+        fetch(serverURL + "/wt", {
 					method: 'GET',
 					headers: {
 						'Accept': 'html/text',
@@ -255,17 +256,18 @@
 				})
 				.then(response => response.text())
 				.then(res => {
-          document.getElementById("TText").innerHTML = res.split(" ")[0] + "&degC";
-          document.getElementById("renew").innerText = "Letzte Aktualisierung " + res.split(" ")[1];
+          document.getElementById("TText").innerHTML = res.substring(0,2) + "." + res.charAt(2) + "&degC";
+          document.getElementById("renew").innerText = "Letzte Aktualisierung " + res.substring(3,5) + ":" + res.substring(5);
         });    
       }
 
       if (window.matchMedia('(display-mode: standalone)').matches) {
-        setInterval(refreshData, 60 * 1000);
+        setInterval(refreshData, 600 * 1000);
       }else{
         setInterval(refreshData, 12 * 60 * 1000);
       }
 
+	  refreshData();
       setupinfo();
 		</script>
   </body>
