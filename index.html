@@ -157,68 +157,69 @@
 		</div>
     
     <script>    
-	  const serverURL = "https://alexanderbad-webserver.glitch.me";
-      let installprompt;
-      window.addEventListener('beforeinstallprompt', (e) => {
-          e.preventDefault();
-          installprompt = e;
-          document.getElementById("install").removeAttribute("hidden");
+		const serverURL = "https://alexanderbad-webserver.glitch.me";
+
+        let installprompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+        	e.preventDefault();
+        	installprompt = e;
+        	document.getElementById("install").removeAttribute("hidden");
         });
 
-      if('serviceWorker' in navigator){
-          window.addEventListener('load', () => {
+        if('serviceWorker' in navigator){
+        	window.addEventListener('load', () => {
             navigator.serviceWorker
-              .register("/serviceworker.js", { scope: '/' })
-              .then(reg => console.log("Ok"))
-              .catch(err => console.log("Service Worker Error: " + err));
-          });
-      }
+                .register("/serviceworker.js", { scope: '/' })
+              	.then(reg => console.log("Ok"))
+              	.catch(err => console.log("Service Worker Error: " + err));
+          	});
+      	}
       
-			var impopen = false;
+		var impopen = false;
 
-			function delay(time) {
-				return new Promise(resolve => setTimeout(resolve, time));
-			}
+		function delay(time) {
+			return new Promise(resolve => setTimeout(resolve, time));
+		}
 			
-			const shareData = {
-						title: 'Alexanderbad Wassertemperatur',
-						text: 'Schau dir die digitale Wassertemperaturanzeige des Alexanderbads an!',
-						url: 'https://alexanderbad.de'
-					}
+		const shareData = {
+			title: 'Alexanderbad Wassertemperatur',
+			text: 'Schau dir die digitale Wassertemperaturanzeige des Alexanderbads an!',
+			url: 'https://alexanderbad.de'
+		}
 
-			document.getElementById("share").addEventListener('click', async () => {
-				let temp = true;
-				try {
-					await navigator.share(shareData);
-					temp = false;
-				} catch (err) {
-					if(temp){
-						document.getElementById("share").innerHTML = "Kopiert!";
-						await navigator.clipboard.writeText("alexanderbad.de");
-						delay(1000).then(() => document.getElementById("share").innerHTML = "Teilen");
-					}
+		document.getElementById("share").addEventListener('click', async () => {
+			let temp = true;
+			try {
+				await navigator.share(shareData);
+				temp = false;
+			} catch (err) {
+				if(temp){
+					document.getElementById("share").innerHTML = "Kopiert!";
+					await navigator.clipboard.writeText("alexanderbad.de");
+					delay(1000).then(() => document.getElementById("share").innerHTML = "Teilen");
 				}
-			});
+			}
+		});
 
-      function installApp(){
-        installprompt.prompt();
-        installprompt.userChoice
-          .then((result) => {
-            document.getElementById("install").remove();
-            if(result.outcome == "accepted"){
-              document.getElementById("infohead").innerText = "WebApp wird installiert..";
-              document.getElementById("infotext").innerText = "Vielen Dank, dass Sie sich für unsere WebApp entschieden haben! \n\n Diese App funktioniert genau so, wie sie es von den Apps aus Ihrem Store kennen. \n\n Bei PC-Nutzern kann nun einfach 'Alexanderbad' in die Suchleiste für Programme eingegeben werden.";
-              info();
-            }else{
-              document.getElementById("infohead").innerText = "Unsere WebApp";
-              document.getElementById("infotext").innerText = "Die Installation der Alexanderbad App wurde abgebrochen.. \n\n Die App ist komfortabel und bringt die Wassertemperatur direkt auf den Startbildschirm. \n\n Falls Sie die App doch herunterladen möchten, laden Sie bitte die Seite neu.";
-              info();
-            }
-            installprompt = null;
-          });
-      }
+		function installApp(){
+			installprompt.prompt();
+			installprompt.userChoice
+			.then((result) => {
+				document.getElementById("install").remove();
+				if(result.outcome == "accepted"){
+				document.getElementById("infohead").innerText = "WebApp wird installiert..";
+				document.getElementById("infotext").innerText = "Vielen Dank, dass Sie sich für unsere WebApp entschieden haben! \n\n Diese App funktioniert genau so, wie sie es von den Apps aus Ihrem Store kennen. \n\n Bei PC-Nutzern kann nun einfach 'Alexanderbad' in die Suchleiste für Programme eingegeben werden.";
+				info();
+				}else{
+				document.getElementById("infohead").innerText = "Unsere WebApp";
+				document.getElementById("infotext").innerText = "Die Installation der Alexanderbad App wurde abgebrochen.. \n\n Die App ist komfortabel und bringt die Wassertemperatur direkt auf den Startbildschirm. \n\n Falls Sie die App doch herunterladen möchten, laden Sie bitte die Seite neu.";
+				info();
+				}
+				installprompt = null;
+			});
+		}
       
-			function imp()
+	  	function imp()
 			{
 				if(!impopen){
 					document.getElementById("imp").style.top = "0%";
@@ -226,77 +227,75 @@
 					document.getElementById("imp").style.top = "100%";
 				}
 				impopen = !impopen;
+			}	
+
+		function info(){
+			if(document.getElementById("infobox").style.display == 'none'){
+				document.getElementById("infobox").style.display = 'block';
+				delay(500).then(() => document.getElementById('infobox').style.opacity = '1');
+			}else{
+				document.getElementById('infobox').style.opacity = '0';
+				delay(1000).then(() => document.getElementById("infobox").style.display = 'none');
 			}
-
-			function info(){
-        if(document.getElementById("infobox").style.display == 'none'){
-          document.getElementById("infobox").style.display = 'block';
-          delay(500).then(() => document.getElementById('infobox').style.opacity = '1');
-        }else{
-          document.getElementById('infobox').style.opacity = '0';
-				  delay(1000).then(() => document.getElementById("infobox").style.display = 'none');
-        }
-			}
-
-      function setupinfo(){
-        let infohead = "[InfoTitle]";
-        let infotext = "[InfoText]";
-
-		infohead = "Wartungsphase!"
-		infotext = "Sehr geehrte Badegäste,<br> bevor es in die neue Saison geht müssen auf der Webseite noch Wartungsarbeiten vorgenommen werden<br><br>Sobald es nähere Informationen zur Eröffnung der Badesaision 2024 gibt, werden sie diese hier einsehen können.<br><br>Ihr Alexanderbad Team"
-
-        document.getElementById("infohead").innerText = infohead;
-        document.getElementById("infotext").innerHTML = infotext;
-        if(!(infohead === "[InfoTitle]" && infotext === "[InfoText]")){
-          info();
-        }
-      }
-
-	  const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
-      async function refreshData(tries) {
-		if(tries == 5){
-			document.getElementById("TText").innerHTML = "404&degC";
-			document.getElementById("renew").innerText = "Keine Verbindung zum Server möglich!";
-			document.getElementById("TText").style.opacity = "1";
-			document.getElementById("renew").style.opacity = "1";
-			return
 		}
-        try {
-			await fetch(serverURL + "/wt", {
-					method: 'GET',
-					headers: {
-						'Accept': 'html/text',
-					},
-			})
-			.then(response => response.text())
-			.then(res => {
-				document.getElementById("TText").innerHTML = res.substring(0,2) + "." + res.charAt(2) + "&degC";
-				document.getElementById("renew").innerText = "Letzte Aktualisierung " + res.substring(3,5) + ":" + res.substring(5);
+
+		function setupinfo(){
+			let infohead = "[InfoTitle]";
+			let infotext = "[InfoText]";
+
+			infohead = "Wartungsphase!"
+			infotext = "Sehr geehrte Badegäste,<br> bevor es in die neue Saison geht müssen auf der Webseite noch Wartungsarbeiten vorgenommen werden<br><br>Sobald es nähere Informationen zur Eröffnung der Badesaision 2024 gibt, werden sie diese hier einsehen können.<br><br>Ihr Alexanderbad Team"
+
+			document.getElementById("infohead").innerText = infohead;
+			document.getElementById("infotext").innerHTML = infotext;
+			if(!(infohead === "[InfoTitle]" && infotext === "[InfoText]")){
+				info();
+			}
+		}
+
+		async function refreshData(tries) {
+			if(tries == 5){
+				document.getElementById("TText").innerHTML = "404&degC";
+				document.getElementById("renew").innerText = "Keine Verbindung zum Server möglich!";
 				document.getElementById("TText").style.opacity = "1";
 				document.getElementById("renew").style.opacity = "1";
-			});
-		} catch (error) {
-			document.getElementById("TText").innerText = "Lädt";
-			document.getElementById("renew").innerText = "Empfange Temperatur...";
-			document.getElementById("TText").style.opacity = "1";
-			document.getElementById("renew").style.opacity = "1";
-			await sleep(1500);
-			document.getElementById("TText").style.opacity = "0";
-			document.getElementById("renew").style.opacity = "0";
-			await sleep(1500);
-			refreshData(++tries)
-		}   
-      }
+				return
+			}
+			try {
+				await fetch(serverURL + "/wt", {
+						method: 'GET',
+						headers: {
+							'Accept': 'html/text',
+						},
+				})
+				.then(response => response.text())
+				.then(res => {
+					document.getElementById("TText").innerHTML = res.substring(0,2) + "." + res.charAt(2) + "&degC";
+					document.getElementById("renew").innerText = "Letzte Aktualisierung " + res.substring(3,5) + ":" + res.substring(5);
+					document.getElementById("TText").style.opacity = "1";
+					document.getElementById("renew").style.opacity = "1";
+				});
+			} catch (error) {
+				document.getElementById("TText").innerText = "Lädt";
+				document.getElementById("renew").innerText = "Empfange Temperatur...";
+				document.getElementById("TText").style.opacity = "1";
+				document.getElementById("renew").style.opacity = "1";
+				await delay(1500);
+				document.getElementById("TText").style.opacity = "0";
+				document.getElementById("renew").style.opacity = "0";
+				await delay(1500);
+				refreshData(++tries)
+			}   
+		}
 
-      if (window.matchMedia('(display-mode: standalone)').matches) {
-        setInterval(refreshData, 600 * 1000);
-      }else{
-        setInterval(refreshData, 12 * 60 * 1000);
-      }
+		if (window.matchMedia('(display-mode: standalone)').matches) {
+			setInterval(refreshData, 5 * 60 * 1000);
+		}else{
+			setInterval(refreshData, 12 * 60 * 1000);
+		}
 
-	  refreshData(0);
-      setupinfo();
-		</script>
+		refreshData(0);
+		setupinfo();
+	</script>
   </body>
 </html>
