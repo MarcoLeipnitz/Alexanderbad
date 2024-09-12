@@ -240,8 +240,16 @@
 		}
 
 		function setupinfo(){
-			let infohead = "[InfoTitle]";
-			let infotext = "[InfoText]";
+			let infohead = "Ende Badesaison 2024"//"[InfoTitle]";
+			let infotext = `Sehr geehrte Badegäste,<br><br>
+							Am Freitag, dem <b>20.09.2024</b> ist der letzte Badetag der Saison 2024.<br><br>
+							Trotz teils verregnetem Sommer hatten wir während der Saison wieder eine schöne Zeit mit Ihnen.<br><br>
+							Insbesondere hoffen wir, dass auch Sie eine solche angenehme Zeit hatten.<br><br>
+							Um die Saison ausklingen zu lassen, laden wir Sie herzlich zum Hundeschwimmen ein.<br><br>
+							Dieses wird am <b>21.09.2024</b> von <b>10:00</b> Uhr bis <b>15:00</b> Uhr stattfinden.<br><br>
+							Wir freuen uns schon auf die nächsten <b>100</b> Jahre Alexanderbad und vor allem auf <b>Sie</b> in der nächsten Badesaison!<br><br>
+							<b>- Ihr Alexanderbad Team -</b>
+							`//"[InfoText]";
 
 			document.getElementById("infohead").innerHTML = "<b>" + infohead + "</b>";
 			document.getElementById("infotext").innerHTML = infotext;
@@ -252,7 +260,7 @@
 
 		async function refreshData(tries) {
 			if(tries == 5){
-				document.getElementById("TText").innerHTML = "404&degC";
+				document.getElementById("TText").innerHTML = "--.-&degC";
 				document.getElementById("renew").innerText = "Keine Verbindung zum Server möglich!";
 				document.getElementById("TText").style.opacity = "1";
 				document.getElementById("renew").style.opacity = "1";
