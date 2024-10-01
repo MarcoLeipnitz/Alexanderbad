@@ -9,9 +9,13 @@
     <meta name="theme-color" content="#d3d3d3"/>
 
 		<style>     
+			:root {
+				--tabtranstime: 0.6s;
+			}
+
 			@font-face {
 				font-family: OpenSans;
-				src: url("./open-sans.semibold.ttf");
+				src: url("./open-sans.semibold-webfont.ttf");
 			}
 
 			[hidden] {
@@ -40,6 +44,7 @@
        		    scrollbar-color: #bebebe #FFF;
 				overflow: hidden;
 				margin: 0;
+				transition: opactiy 0.5s;
 			}
 			
 			h1{
@@ -142,17 +147,59 @@
 				height: 60%;
 				font-size: 2cqh;
 				margin-bottom: .3svh;
-				transition: color 0.25s;
+				transition: color var(--tabtranstime);
 			}
 
 			#navbar > div > div > img{
 				height: 100%;
 				background-color: #AAA;
-				transition: background-color 0.25s;
+				transition: background-color var(--tabtranstime);
 			}
 
 			#install {
 				color: #7748D9;
+			}
+
+			#tabtitle {
+				transition: opacity calc((var(--tabtranstime) - 0.1s) / 2);
+			}
+
+			#articletab {
+				width: 100vw; 
+				height: calc(90svh - min(12.5vw, 30svh));
+				top: min(12.5vw, 30svh);
+				display: inline-flex;
+				justify-content: center;
+				align-items: center;
+				font-size: 25vmin;
+				transition: opacity calc((var(--tabtranstime) - 0.1s) / 2);
+				opacity: 0;
+			}
+
+			#contacttab {
+				width: 100vw; 
+				height: calc(90svh - min(12.5vw, 30svh));
+				top: min(12.5vw, 30svh);
+				display: inline-flex;
+				justify-content: center;
+				align-items: center;
+				font-size: 25vmin;
+				transition: opacity calc((var(--tabtranstime) - 0.1s) / 2);
+				opacity: 0;
+			}
+
+			#wttab {
+				transition: opacity calc((var(--tabtranstime) - 0.1s) / 2);
+			}
+
+			#contacttab > div > div {
+				width: 100%; 
+				font-size: 3cqh; 
+				display: inline-flex; 
+				align-items: center; 
+				justify-content: center; 
+				flex-grow: 1; 
+				position: relative;
 			}
 
 		</style>
@@ -160,10 +207,32 @@
 	
 	<body>
     <div class="dot"></div>
-    <div style="width: 75vw; height: min(12.5vw, 30svh); left: 12.5vw; display: inline-flex; align-items: center; justify-content: center;"><h1 style="font-size: min(8vw, 20vh);">Wassertemperatur</h1></div>
-    <div style="width: 12.5vw; height: 12.5vw; display: inline-block; left: 87.5vw;"></div>
-    <div style="width: 100vw; height: calc(70svh - min(12.5vw, 30svh)); top: min(12.5vw, 30svh); display: inline-flex; justify-content: center; align-items: center; font-size: 25vmin;"><b id="TText">[TEMP]&degC</b></div>
-    <div id="renew" style="width: 100vw; height: 10svh; top: 70svh; display: inline-flex; justify-content: center; align-items: center; font-size: 6vmin;">Letzte Aktualisierung 00:00</div>
+    <div style="width: 75vw; height: min(12.5vw, 30svh); left: 12.5vw; display: inline-flex; align-items: center; justify-content: center;"><h1 style="font-size: min(8vw, 20vh);" id="tabtitle">Wassertemperatur</h1></div>
+    <div style="width: 12.5vw; height: min(12.5vw, 30svh); display: inline-block; left: 87.5vw;"></div>
+	<div id="wttab">
+		<div style="width: 100vw; height: calc(70svh - min(12.5vw, 30svh)); top: min(12.5vw, 30svh); display: inline-flex; justify-content: center; align-items: center; font-size: 25vmin;"><b id="TText">[TEMP]&degC</b></div>
+   		<div id="renew" style="width: 100vw; height: 10svh; top: 70svh; display: inline-flex; justify-content: center; align-items: center; font-size: 6vmin;">Letzte Aktualisierung 00:00</div>
+	</div>
+
+	<div id="articletab"></div>
+
+	<div id="contacttab">
+		<div style="height: 90%; width: min(80%, 700px); border-radius: 20px; border: 6.5px solid #DDD; position: relative; overflow: hidden; display: flex; flex-direction: column;">
+			<div style="width: 100%; background-color: #0190e1; font-size: 4.5cqh; display: inline-flex; align-items: center; justify-content: center; color: white; flex-grow: 3; position: relative;">Impressum</div>
+			<div style="text-decoration: underline;">Verantwortlicher für die Webseite</div>
+			<div>Herr Marco Leipnitz</div>
+			<div></div>
+			<div style="text-decoration: underline;">Kommunikation</div>
+			<div>alexanderbad@erbach.de</div>
+			<div>06062-266909</div>
+			<div></div>
+			<div style="text-decoration: underline;">Standort</div>
+			<div>Wiesenweg Nr.11</div>
+			<div>64711 Erbach</div>
+			<div></div>
+		</div>
+	</div>
+
     <div id="navbar">
 		<div id="install" onclick="installApp();" hidden>
 			<div><img style="background-color: #7748D9;" src="./images/icons/appdownload.png"></div>
@@ -173,27 +242,6 @@
 		<div id="newsnav" onclick="navhandler(3);"><div><img src="./images/icons/news.png"></div><div>Neues</div></div>
 		<div id="share" onclick="navhandler(4);"><div><img src="./images/icons/sharearrow.png"></div><div>Teilen</div></div>
 	</div>
-
-    <div id="imp">
-			<div style="background-color: white; height: 70svh; width: min(80vw, 80vh); margin-top: 15svh; margin-left: calc((100vw - min(80vw, 80vh))/2); border-radius: 30px;">
-				<div style="height: 15%; width: 100%; background-color: #0190e1; border-radius: 30px 30px 0 0; display:flex; align-items: center; justify-content: center; color: rgb(255, 255, 255); font-size: 3vh;">Impressum & Kontakt</div>
-				<div style="height: 70%; width: 100%; top: 15%; background-color: rgb(255, 255, 255);">
-					<div style="height: 20%; width: 100%; justify-content: center; align-items: center; display: flex; font-size: 2.5vh;">Verantwortlicher für die Webseite</div>
-					<div style="height: 20%; width: 100%; justify-content: center; align-items: center; display: flex; font-size: 3vh; top: 20%;">
-						Herr Marco Leipnitz
-					</div>
-					<div style="height: 20%; width: 100%; justify-content: center; align-items: center; display: flex; font-size: 3vh; top: 40%;">
-						Wiesenweg Nr.11 <br>
-						64711 Erbach
-					</div>
-					<div style="height: 20%; width: 100%; justify-content: center; align-items: center; display: flex; font-size: 3vh; top: 60%;">
-						alexanderbad@erbach.de <br>
-						06062-266909
-					</div>
-				</div>
-				<div style="height: 15%; width: 100%; top: 85%; background-color: rgb(255, 255, 255); border-radius: 0 0 30px 30px; border-top: 1px dashed black; display: flex; align-items: center; justify-content: center; color: rgb(100, 100, 100); font-size: 3vh; cursor: pointer;" onclick="imp();">Impressum schließen</div>
-			</div>
-		</div>
 
     <div id="infobox" style="display: none;">
 			<div style="background-color: white; height: 70svh; width: min(80vw, 80vh); margin-top: 15svh; margin-left: calc((100vw - min(80vw, 80vh))/2); border-radius: 30px;">
@@ -357,14 +405,20 @@
 			}   
 		}
 
-		if (window.matchMedia('(display-mode: standalone)').matches) {
-			setInterval(refreshData, 5 * 60 * 1000);
-		}else{
-			setInterval(refreshData, 12 * 60 * 1000);
+		const tabs = ["wttab","contacttab","articletab"];
+
+		function hidealltabs(){
+			tabs.forEach(tab => {
+				document.getElementById(tab).style.opacity = "0";
+			});
 		}
+
 
 		let lastnavindex = 1
 		async function navhandler(index) {
+			if(index == 1) refreshData(0);
+			if(lastnavindex == index) return;
+
 			document.getElementById("navbar").children[lastnavindex].children[0].children[0].style.backgroundColor = "";
 			document.getElementById("navbar").children[lastnavindex].style.color = "";
 			document.getElementById("navbar").children[index].children[0].children[0].style.backgroundColor = "#4848D9";
@@ -379,12 +433,27 @@
 				});
 				return;
 			}
-			lastnavindex = index; //Fix this
+			lastnavindex = index;
+
+			//Change tabtitle
+			document.getElementById("tabtitle").style.opacity = "0";
+			hidealltabs();
+			await delay(1000 * getComputedStyle(document.body).getPropertyValue('--tabtranstime').replace("s","") / 2).then(() => {
+				document.getElementById("tabtitle").innerText = ["Unused", "Wassertemperatur", "Kontakt", "Neuigkeiten"][index];
+				document.getElementById("tabtitle").style.opacity = "1";
+			});	
+
+			//Change tabs between all three accessible
+			document.getElementById(tabs[index - 1]).style.opacity = "1";
+			
 		}
 
-		navhandler(1);
+		document.getElementById("navbar").children[1].children[0].children[0].style.backgroundColor = "#4848D9";
+		document.getElementById("navbar").children[1].style.color = "#4848D9";
 		refreshData(0);
 		setupinfo();
+
+		navhandler(2);
 	</script>
   </body>
 </html>
