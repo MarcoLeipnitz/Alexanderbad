@@ -8,7 +8,20 @@
     <meta name="description" content="Die aktuelle Wassertemperatur des Alexanderbads in Erbach kann hier digital eingesehen werden.">
     <meta name="theme-color" content="#d3d3d3"/>
 
-		<style>      
+		<style>     
+			@font-face {
+				font-family: OpenSans;
+				src: url("./open-sans.semibold.ttf");
+			}
+
+			[hidden] {
+				display: none !important;
+			}
+
+			img {
+				user-select: none;
+			}
+		
 			.dot {
 				  height: min(25vw, 60vh);
 				  width: auto;
@@ -41,7 +54,7 @@
 				position: absolute;
 				text-align: center;
 				vertical-align: middle;
-				font-family: 'Bahnschrift';
+				font-family: 'OpenSans', 'Bahnschrift';
 			}
 
 			.footcol{
@@ -94,21 +107,54 @@
 				font-size: min(4.5vw, 5vh);
 			}
 
-			#artdot { 
-				display: none;/*inline-block*/ 
-				position: relative; 
-				font-size: 60%; 
-				background-color: #0190e1; 
-				color: white; 
-				border-radius: 20px; 
-				border: 4px solid #0190e1; 
-				margin-left: 10px;
-			}
-
 			#TText, #renew {
 				opacity: 0;
 				transition: opacity 1.5s ease-in-out;
 			}
+
+			#navbar {
+				display: flex;
+				height: 10svh;
+				top: 90svh;
+				width: 100svw;
+				border-top: 2px solid #CCC;
+				justify-content: space-between;
+				align-items: center;
+				transition: all 0.5s;
+				user-select: none;
+			}
+
+			#navbar > div {
+				position: relative;
+				height: 80%;
+				flex-grow: 1;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				flex-basis: 100%;
+				justify-content: space-between;
+				display: flex;
+				cursor: pointer;
+			}
+
+			#navbar > div > div {
+				position: relative;
+				height: 60%;
+				font-size: 2cqh;
+				margin-bottom: .3svh;
+				transition: color 0.25s;
+			}
+
+			#navbar > div > div > img{
+				height: 100%;
+				background-color: #AAA;
+				transition: background-color 0.25s;
+			}
+
+			#install {
+				color: #7748D9;
+			}
+
 		</style>
 	</head>
 	
@@ -118,11 +164,15 @@
     <div style="width: 12.5vw; height: 12.5vw; display: inline-block; left: 87.5vw;"></div>
     <div style="width: 100vw; height: calc(70svh - min(12.5vw, 30svh)); top: min(12.5vw, 30svh); display: inline-flex; justify-content: center; align-items: center; font-size: 25vmin;"><b id="TText">[TEMP]&degC</b></div>
     <div id="renew" style="width: 100vw; height: 10svh; top: 70svh; display: inline-flex; justify-content: center; align-items: center; font-size: 6vmin;">Letzte Aktualisierung 00:00</div>
-    <div style="width: 100vw; height: 20svh; top: 80svh; display: inline-flex; justify-content: center; align-items: center;">
-      <table>
-        <tr class="Links"><td id="install" hidden><a href="#" onclick="installApp();">WebApp</a></td><td onclick="imp();"><a href="#">Impressum</a></td><td id="share"><a href="#">Teilen</a></td><td><div style="position: relative; display: inline-block;"><a href="news">Artikel</a></div><div id="artdot">Neu!</div></td></tr>
-      </table>
-    </div>
+    <div id="navbar">
+		<div id="install" onclick="installApp();" hidden>
+			<div><img style="background-color: #7748D9;" src="./images/icons/appdownload.png"></div>
+			<div>App</div></div>
+		<div id="waternav" onclick="navhandler(1);"><div><img src="./images/icons/temperature.png"></div><div>Wasser</div></div>
+		<div id="contactnav" onclick="navhandler(2);"><div><img src="./images/icons/contact.png" style="font-size: 10%;"></div><div>Kontakt</div></div>
+		<div id="newsnav" onclick="navhandler(3);"><div><img src="./images/icons/news.png"></div><div>Neues</div></div>
+		<div id="share" onclick="navhandler(4);"><div><img src="./images/icons/sharearrow.png"></div><div>Teilen</div></div>
+	</div>
 
     <div id="imp">
 			<div style="background-color: white; height: 70svh; width: min(80vw, 80vh); margin-top: 15svh; margin-left: calc((100vw - min(80vw, 80vh))/2); border-radius: 30px;">
@@ -194,9 +244,9 @@
 				temp = false;
 			} catch (err) {
 				if(temp){
-					document.getElementById("share").innerHTML = "Kopiert!";
-					await navigator.clipboard.writeText("alexanderbad.de");
-					delay(1000).then(() => document.getElementById("share").innerHTML = "Teilen");
+					document.getElementById("share").children[1].innerText = "Kopiert!";
+					await navigator.clipboard.writeText("Schau dir die digitale Wassertemperaturanzeige des Alexanderbads unter https://alexanderbad.de an!");
+					delay(2000).then(() => document.getElementById("share").children[1].innerText = "Teilen");
 				}
 			}
 		});
@@ -266,7 +316,7 @@
 			document.getElementById("infohead").innerHTML = "<b>" + infohead + "</b>";
 			document.getElementById("infotext").innerHTML = infotext;
 			if(!(infohead === "[InfoTitle]" && infotext === "[InfoText]")){
-				info();
+				//info();
 			}
 		}
 
@@ -313,6 +363,26 @@
 			setInterval(refreshData, 12 * 60 * 1000);
 		}
 
+		let lastnavindex = 1
+		async function navhandler(index) {
+			document.getElementById("navbar").children[lastnavindex].children[0].children[0].style.backgroundColor = "";
+			document.getElementById("navbar").children[lastnavindex].style.color = "";
+			document.getElementById("navbar").children[index].children[0].children[0].style.backgroundColor = "#4848D9";
+			document.getElementById("navbar").children[index].style.color = "#4848D9";
+
+			if(index == 4){
+				await delay(2000).then(() => {
+					document.getElementById("navbar").children[4].children[0].children[0].style.backgroundColor = "";
+					document.getElementById("navbar").children[4].style.color = "";
+					document.getElementById("navbar").children[lastnavindex].children[0].children[0].style.backgroundColor = "#4848D9";
+					document.getElementById("navbar").children[lastnavindex].style.color = "#4848D9";
+				});
+				return;
+			}
+			lastnavindex = index; //Fix this
+		}
+
+		navhandler(1);
 		refreshData(0);
 		setupinfo();
 	</script>
