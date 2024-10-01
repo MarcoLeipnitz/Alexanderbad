@@ -202,6 +202,50 @@
 				position: relative;
 			}
 
+			@keyframes newsdotblink { /*//TODO: finishing touches*/
+				0% {background-color: #0190e1;}
+				50% {background-color: hsl(202, 99%, 53%);}
+				100% {background-color: #0190e1;}
+			}
+
+			#newsdot {
+				width: 35%;
+				aspect-ratio: 1 / 1;
+				background-color: #0190e1;
+				position: absolute;
+				border-radius: 100%;
+				margin-left: 80%;
+				margin-top: -8%;
+				animation: 2s newsdotblink infinite;
+			}
+
+			.articletitlecontainer {
+				transition: border-radius .75s;
+				display: flex; flex-direction: row; position: relative; width: 95%; border-radius: 20px; height: 15%; border: solid #DDD; border-width: 6px; justify-content: center; align-items: center;
+			}
+
+			.articletitlesettings {
+				flex-grow: 100; position: relative; font-size: 2.5cqh;
+			}
+
+			.articlesqr {
+				transition: transform 0.5s;
+				position: relative; height: 100%; aspect-ratio: 1 / 1;
+			}
+
+			svg {
+				width: 100%; height: 100%; position: absolute; left: 0; top: 0;
+			}
+
+			.articletextcontainer {
+				transition: height .75s, opacity .75s;
+				display: flex; flex-direction: row; position: relative; width: 95%; border-radius: 0px 0px 20px 20px; border: solid #DDD; border-width: 0px; justify-content: flex-start; align-items: center; margin-bottom: 5%; overflow: hidden; height: 0; padding-top: 0px; padding-bottom: 0px;/*padding 20, border-width: 0px 6px 6px 6px; height: auto*/
+			}
+
+			.articledesc {
+				width: 80%; position: relative; font-size: 2.5cqh; left: 10%; overflow-wrap: break-word; text-align: left;
+			}
+
 		</style>
 	</head>
 	
@@ -213,8 +257,6 @@
 		<div style="width: 100vw; height: calc(70svh - min(12.5vw, 30svh)); top: min(12.5vw, 30svh); display: inline-flex; justify-content: center; align-items: center; font-size: 25vmin;"><b id="TText">[TEMP]&degC</b></div>
    		<div id="renew" style="width: 100vw; height: 10svh; top: 70svh; display: inline-flex; justify-content: center; align-items: center; font-size: 6vmin;">Letzte Aktualisierung 00:00</div>
 	</div>
-
-	<div id="articletab"></div>
 
 	<div id="contacttab">
 		<div style="height: 90%; width: min(80%, 700px); border-radius: 20px; border: 6.5px solid #DDD; position: relative; overflow: hidden; display: flex; flex-direction: column;">
@@ -233,13 +275,28 @@
 		</div>
 	</div>
 
+	<div id="articletab">
+		<div style="height: 90%; width: min(90%, 1400px); position: relative; overflow-y: scroll;">
+			<!--One article-->
+			<div class="articletitlecontainer" onclick="articletoggel(0);">
+				<div class="articletitlesettings">Titel</div>
+				<div class="articlesqr">
+					<svg viewBox="0 0 100 100"><polyline points="40,45 50,55 60,45" fill="none" stroke="black" stroke-width="5"></polyline></svg>
+				</div>
+			</div>
+			<div class="articletextcontainer">
+				<div class="articledesc">BeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibung</div>
+			</div>
+		</div>
+	</div>
+
     <div id="navbar">
 		<div id="install" onclick="installApp();" hidden>
 			<div><img style="background-color: #7748D9;" src="./images/icons/appdownload.png"></div>
 			<div>App</div></div>
 		<div id="waternav" onclick="navhandler(1);"><div><img src="./images/icons/temperature.png"></div><div>Wasser</div></div>
 		<div id="contactnav" onclick="navhandler(2);"><div><img src="./images/icons/contact.png" style="font-size: 10%;"></div><div>Kontakt</div></div>
-		<div id="newsnav" onclick="navhandler(3);"><div><img src="./images/icons/news.png"></div><div>Neues</div></div>
+		<div id="newsnav" onclick="navhandler(3);"><div><img src="./images/icons/news.png"><div id="newsdot"></div></div><div>Neues</div></div>
 		<div id="share" onclick="navhandler(4);"><div><img src="./images/icons/sharearrow.png"></div><div>Teilen</div></div>
 	</div>
 
@@ -368,6 +425,31 @@
 			}
 		}
 
+		async function articletoggel(index){
+			let title = document.getElementById("articletab").children[0].children[2 * index];
+			let element = document.getElementById("articletab").children[0].children[2 * index + 1];
+			if(element.style.getPropertyValue("height") == 0){
+				element.style.opacity = "1";
+				title.children[1].style.transform = "rotate3d(1, 0, 0, 180deg)";
+				title.style.transition = "border-radius 0s";
+				title.style.borderRadius = "20px 20px 0px 0px";
+				title.style.borderWidth = "6px 6px 0px 6px";
+				element.style.height = element.children[0].clientHeight + "px";
+				element.style.padding = "20px 0px 20px 0px";
+				element.style.borderWidth = "6px";
+			}else{
+				title.children[1].style.transform = ""
+				title.style.borderWidth = "";
+				title.style.transition = "";
+				element.style.opacity = "0";
+				element.style.height = "";
+				element.style.padding = "";
+				element.style.borderWidth = "0px 6px 6px 6px";
+				await delay(500).then(() => {title.style.borderRadius = "";});
+				element.style.borderWidth = "";
+			}
+		}
+
 		async function refreshData(tries) {
 			if(tries == 5){
 				document.getElementById("TText").innerHTML = "--.-&degC";
@@ -453,7 +535,7 @@
 		refreshData(0);
 		setupinfo();
 
-		navhandler(2);
+		navhandler(3);
 	</script>
   </body>
 </html>
