@@ -495,10 +495,17 @@
 			});
 		}
 
+		async function hidedatafetch(){
+			document.getElementById("TText").style.opacity = "0";
+			document.getElementById("renew").style.opacity = "0";
+			await delay(1500);
+			refreshData(0)
+		}
+
 
 		let lastnavindex = 1
 		async function navhandler(index) {
-			if(index == 1) refreshData(0);
+			if(index == 1) hidedatafetch();
 			if(lastnavindex == index) return;
 
 			document.getElementById("navbar").children[lastnavindex].children[0].children[0].style.backgroundColor = "";
