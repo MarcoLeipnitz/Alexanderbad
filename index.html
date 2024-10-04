@@ -202,7 +202,7 @@
 				position: relative;
 			}
 
-			@keyframes newsdotblink { /*//TODO: finishing touches*/
+			@keyframes newsdotblink {
 				0% {background-color: #0190e1;}
 				50% {background-color: hsl(202, 99%, 53%);}
 				100% {background-color: #0190e1;}
@@ -217,6 +217,7 @@
 				margin-left: 80%;
 				margin-top: -8%;
 				animation: 2s newsdotblink infinite;
+				opacity: 0;
 			}
 
 			.articletitlecontainer {
@@ -259,7 +260,7 @@
 	</div>
 
 	<div id="contacttab">
-		<div style="height: 90%; width: min(80%, 700px); border-radius: 20px; border: 6.5px solid #DDD; position: relative; overflow: hidden; display: flex; flex-direction: column;">
+		<div style="height: 90%; width: min(90%, 1000px); border-radius: 20px; border: 6.5px solid #DDD; position: relative; overflow: hidden; display: flex; flex-direction: column;">
 			<div style="width: 100%; background-color: #0190e1; font-size: 4.5cqh; display: inline-flex; align-items: center; justify-content: center; color: white; flex-grow: 3; position: relative;">Impressum</div>
 			<div style="text-decoration: underline;">Verantwortlicher für die Webseite</div>
 			<div>Herr Marco Leipnitz</div>
@@ -276,16 +277,24 @@
 	</div>
 
 	<div id="articletab">
-		<div style="height: 90%; width: min(90%, 1400px); position: relative; overflow-y: scroll;">
-			<!--One article-->
-			<div class="articletitlecontainer" onclick="articletoggel(0);">
-				<div class="articletitlesettings">Titel</div>
+		<div id="articlelist" style="height: 90%; width: min(90%, 1400px); position: relative; overflow-y: scroll;">
+			<div class="articletitlecontainer" onclick="articletoggel(0)">
+				<div class="articletitlesettings">Klick mich: Immer auf dem neusten Stand!</div>
 				<div class="articlesqr">
 					<svg viewBox="0 0 100 100"><polyline points="40,45 50,55 60,45" fill="none" stroke="black" stroke-width="5"></polyline></svg>
 				</div>
 			</div>
 			<div class="articletextcontainer">
-				<div class="articledesc">BeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibungBeschreibung</div>
+				<div class="articledesc">Mit der neuen "Artikel" Funktion, bzw. den Neuigkeiten kann man problemlos immer die neusten Informationen des Alexanderbads in Erbach einsehen.<br><br>Einfach Klicken und Scrollen und die neusten Informationen genießen.<br><br>Wir wünschen Ihnen viel Spaß mit unserem neuen Feature!<br><br>Ihr Team aus dem Alexanderbad</div>
+			</div>
+			<div class="articletitlecontainer" onclick="articletoggel(1)">
+				<div class="articletitlesettings">Das Wichtigste über das Alexanderbad</div>
+				<div class="articlesqr">
+					<svg viewBox="0 0 100 100"><polyline points="40,45 50,55 60,45" fill="none" stroke="black" stroke-width="5"></polyline></svg>
+				</div>
+			</div>
+			<div class="articletextcontainer">
+				<div class="articledesc">Das Alexanderbad ist in den Sommermonaten jeden Tag von <b>09:00</b>Uhr bis <b>20:00</b> Uhr geöffnet.<br><br>Der Eintritt kostet für erwachsene Personen <b>4€</b><br>Besimmte Personengruppen zahlen einen ermäßigten Tarif von <b>2€</b>.<br><br>Ab <b>18:00</b> Uhr gibt es einen Feierabendtarif:<br>Erwachsene: <b>2€</b> <br>Jugendliche<b>1€</b><br><br>Dauerkarten können zu folgenden Tarifen erworben werden:<br>Erwachsene: <b>80</b>€ (bzw. <b>70</b>€ im Vorverkauf)<br>Ermäßigte: <b>36</b>€ (bzw. <b>30</b>€ im Vorverkauf)<br><br>Den ermäßigten Preis zahlen folgende Personen:<br> Kinder ab 6 Jahren, Jugendliche, Schüler, Studenten, Auszubildende, Schwerbehinderte, Grundwehrdienst- bzw. Zivildienstleistende und Teilnehmer eines Freiwilligendienstes<br><br>Ihr Team aus dem Alexanderbad</div>
 			</div>
 		</div>
 	</div>
@@ -302,17 +311,19 @@
 
     <div id="infobox" style="display: none;">
 			<div style="background-color: white; height: 70svh; width: min(80vw, 80vh); margin-top: 15svh; margin-left: calc((100vw - min(80vw, 80vh))/2); border-radius: 30px;">
-				<div style="height: 15%; width: 100%; background-color: #0190e1; border-radius: 30px 30px 0 0; display:flex; align-items: center; justify-content: center; color: rgb(255, 255, 255); font-size: 4.5cqh;">Hinweis</div>
+				<div style="height: 15%; width: 100%; background-color: #0190e1; border-radius: 30px 30px 0 0; display:flex; align-items: center; justify-content: center; color: rgb(255, 255, 255); font-size: 5cqh; font-weight: bold;">Hinweis</div>
         <div style="height: 70%; width: 100%; top: 15%; justify-content: center; overflow-y: auto;">
-          <div id="infohead" style="height: 25%; width: 100%; justify-content: center; font-size: 5vmin; align-items: center; display: flex;"><b></b></div>
-          <div id="infotext" style="height: 75%; width: 80%; top: 25%; left: 10%; justify-content: center; font-size: 4vmin;"></div>
+			<div id="infohead" style="height: 25%; width: 100%; justify-content: center; font-size: 5vmin; align-items: center; display: flex;"><b></b></div>
+			<div id="infotext" style="height: 75%; width: 80%; top: 25%; left: 10%; justify-content: center; font-size: 4vmin;">
+				<div style="position: relative; display: flex; align-items: center; justify-content: center; color: rgb(100, 100, 100); user-select: none; padding-bottom: 2vh; padding-top: 2vh;" onclick="document.getElementById('readinfo').click()"><input id="readinfo" type="checkbox" style="margin-right: 5%; transform: scale(2.5);">Als gelesen markieren</div>
+			</div>
         </div>
 				<div style="height: 15%; width: 100%; top: 85%; background-color: rgb(255, 255, 255); border-radius: 0 0 30px 30px; border-top: 1px dashed black; display: flex; align-items: center; justify-content: center; color: rgb(100, 100, 100); font-size: 3vh; cursor: pointer;" onclick="info();">Hinweis schließen</div>
 			</div>
 		</div>
     
     <script>    
-		const serverURL = "https://alexanderbad-webserver.glitch.me";
+		const serverURL = "http://192.168.178.56:8081"//"https://alexanderbad-webserver.glitch.me";
 
         let installprompt;
         window.addEventListener('beforeinstallprompt', (e) => {
@@ -389,13 +400,34 @@
 				document.getElementById("infobox").style.display = 'block';
 				delay(500).then(() => document.getElementById('infobox').style.opacity = '1');
 			}else{
+				if(document.getElementById("readinfo").checked) localStorage.setItem("info", Number(new Date()));
 				document.getElementById('infobox').style.opacity = '0';
 				delay(1000).then(() => document.getElementById("infobox").style.display = 'none');
 			}
 		}
 
-		function setupinfo(){
-			let infohead = "Bis zur Badesaison 2025"//"[InfoTitle]";
+		async function setupinfo(){
+			await fetch(serverURL + "/timeupdates", {method: "GET",})
+			 	  .then((res) => res.text())
+				  .then((res) => {
+					let notifications = JSON.parse(res);
+					if(!(localStorage.getItem("newsdot") != null && Number(localStorage.getItem("newsdot")) > Number(notifications.news))){
+						document.getElementById("newsdot").style.opacity = "1";
+					}
+
+					if(localStorage.getItem("info") == null || Number(localStorage.getItem("info")) < Number(notifications.info)){
+						fetch(serverURL + "/info", {method: "GET",})
+						.then(res => res.text())
+						.then(response => {
+							details = response.split("\n");
+							generateAndVisualizeInfo(details[1], details[2]);
+						});
+					}
+				  });			
+		}
+
+		function generateAndVisualizeInfo(infohead, infotext){
+			/*let infohead = "Bis zur Badesaison 2025"//"[InfoTitle]";
 			let infotext = `<img src="./images/Nachbereitung_100Jahre.webp" alt="Bild von Ihrem Schwimmbadteam in der Nachbereitung. v.l.n.r Jürgen Hörst, Maike Wagner, Frank Weickart, Marco Leipnitz, Sebastian Hörr" style="aspect-ratio: 4/3;width: 100%;border-radius: 10px;">
 							<br><br>
 							Sehr geehrte Badegäste,<br><br>
@@ -416,12 +448,12 @@
 							<br>
 							Wir freuen uns schon auf die nächsten <b>100</b> Jahre Alexanderbad und vor allem auf <b>Sie</b> in der nächsten Badesaison!<br><br>
 							<b>- Ihr Alexanderbad Team -</b>
-							`//"[InfoText]";
+							`//"[InfoText]";*/
 
 			document.getElementById("infohead").innerHTML = "<b>" + infohead + "</b>";
-			document.getElementById("infotext").innerHTML = infotext;
-			if(!(infohead === "[InfoTitle]" && infotext === "[InfoText]")){
-				//info();
+			document.getElementById("infotext").innerHTML = infotext + document.getElementById("infotext").innerHTML;
+			if(!(infohead === undefined && infotext === undefined)){
+				info();
 			}
 		}
 
@@ -451,6 +483,15 @@
 		}
 
 		async function refreshData(tries) {
+			if(localStorage.getItem("wtrefresh") != null && !((Number(new Date()) - localStorage.getItem("wtrefresh")) / 1000 > 300)){
+				let res = localStorage.getItem("wtdata");
+				document.getElementById("TText").innerHTML = res.substring(0,2) + "." + res.charAt(2) + "&degC";
+				document.getElementById("renew").innerText = "Letzte Aktualisierung " + res.substring(3,5) + ":" + res.substring(5);
+				document.getElementById("TText").style.opacity = "1";
+				document.getElementById("renew").style.opacity = "1";
+				return;
+			}
+
 			if(tries == 5){
 				document.getElementById("TText").innerHTML = "--.-&degC";
 				document.getElementById("renew").innerText = "Keine Verbindung zum Server möglich!";
@@ -473,6 +514,8 @@
 					document.getElementById("renew").innerText = "Letzte Aktualisierung " + res.substring(3,5) + ":" + res.substring(5);
 					document.getElementById("TText").style.opacity = "1";
 					document.getElementById("renew").style.opacity = "1";
+					localStorage.setItem("wtrefresh", Number(new Date()));
+					localStorage.setItem("wtdata", res);
 				});
 			} catch (error) {
 				document.getElementById("TText").innerText = "Lädt";
@@ -506,6 +549,7 @@
 		let lastnavindex = 1
 		async function navhandler(index) {
 			if(index == 1) hidedatafetch();
+			if(index == 3){setuparticles(); localStorage.setItem("newsdot", Number(new Date())); document.getElementById("newsdot").style.opacity = "0";}
 			if(lastnavindex == index) return;
 
 			document.getElementById("navbar").children[lastnavindex].children[0].children[0].style.backgroundColor = "";
@@ -534,15 +578,41 @@
 
 			//Change tabs between all three accessible
 			document.getElementById(tabs[index - 1]).style.opacity = "1";
-			
+		}
+
+		let articlesfetched = false;
+		function setuparticles(){
+			if(articlesfetched) return
+			const articletemp = `<div class="articletitlecontainer" onclick="articletoggel([index])">
+				<div class="articletitlesettings">[TITLE]</div>
+				<div class="articlesqr">
+					<svg viewBox="0 0 100 100"><polyline points="40,45 50,55 60,45" fill="none" stroke="black" stroke-width="5"></polyline></svg>
+				</div>
+			</div>
+			<div class="articletextcontainer">
+				<div class="articledesc">[DESC]</div>
+			</div>`;
+			const articlelist = document.getElementById("articlelist");
+
+			fetch(serverURL + "/news", {method: "GET",})
+			.then((res) => res.text())
+			.then(res => {
+				let articleparts = res.split("\n");
+				for(let i = 1; i < articleparts.length; i += 3){
+					let newarticle = articletemp;
+					newarticle = newarticle.replace("[index]", Math.floor(i / 3) + 2)
+					newarticle = newarticle.replace("[TITLE]", articleparts[i])
+					newarticle = newarticle.replace("[DESC]", articleparts[i + 1])
+					articlelist.innerHTML += newarticle + "\n\n";
+				}
+				articlesfetched = true;
+			});
 		}
 
 		document.getElementById("navbar").children[1].children[0].children[0].style.backgroundColor = "#4848D9";
 		document.getElementById("navbar").children[1].style.color = "#4848D9";
 		refreshData(0);
 		setupinfo();
-
-		navhandler(3);
 	</script>
   </body>
 </html>
