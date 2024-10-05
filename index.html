@@ -323,7 +323,7 @@
 		</div>
     
     <script>    
-		const serverURL = "http://192.168.178.56:8081"//"https://alexanderbad-webserver.glitch.me";
+		const serverURL = "https://alexanderbad-webserver.glitch.me";
 
         let installprompt;
         window.addEventListener('beforeinstallprompt', (e) => {
@@ -427,29 +427,6 @@
 		}
 
 		function generateAndVisualizeInfo(infohead, infotext){
-			/*let infohead = "Bis zur Badesaison 2025"//"[InfoTitle]";
-			let infotext = `<img src="./images/Nachbereitung_100Jahre.webp" alt="Bild von Ihrem Schwimmbadteam in der Nachbereitung. v.l.n.r Jürgen Hörst, Maike Wagner, Frank Weickart, Marco Leipnitz, Sebastian Hörr" style="aspect-ratio: 4/3;width: 100%;border-radius: 10px;">
-							<br><br>
-							Sehr geehrte Badegäste,<br><br>
-							Trotz teils verregnetem Sommer hatten wir während der Saison wieder eine schöne Zeit mit Ihnen.<br><br>
-							Insbesondere hoffen wir, dass auch Sie eine solche angenehme Zeit hatten.<br><br>
-							Genießen Sie bis nächstes Jahr unser Gedicht über die vergangenen 4 Monate<br><br>
-
-							\"<i>Achtung Achtung eine Durchsage:<br><br>
-							Ein letztes Mal in der Saison ist es die Aufmerksamkeit, nach der ich frage.<br><br>
-							Trotz kaltem Wind und nassem Sturm schauen wir stets auf die mehr oder weniger akkuraten Schwimmbaduhren<br><br>
-							Seien Sie nicht getrügt von des Temperatursystems Spiel!<br><br>
-							Manchmal war die gemessene Temperatur etwas zu wenig, manchmal zu viel.<br><br>
-							Und selbst wenn die Technik ab und an nicht ganz so verlässlich besteht<br><br>
-							Die schöne Zeit mit Ihnen ist doch die Quintessenz, um die es uns geht<br><br>
-							Ein schönes Gespräch, Kilometer zu schwimmen, Volleyball spielen, neue Zeiten erklimmen<br><br>
-							Doch sehr geehrte Badegäste, eines ist klar:<br><br>
-							Frohe Weihnachten, guten Rutsch, bis zur nächsten Saison im kommenden Jahr!\"</i><br><br>
-							<br>
-							Wir freuen uns schon auf die nächsten <b>100</b> Jahre Alexanderbad und vor allem auf <b>Sie</b> in der nächsten Badesaison!<br><br>
-							<b>- Ihr Alexanderbad Team -</b>
-							`//"[InfoText]";*/
-
 			document.getElementById("infohead").innerHTML = "<b>" + infohead + "</b>";
 			document.getElementById("infotext").innerHTML = infotext + document.getElementById("infotext").innerHTML;
 			if(!(infohead === undefined && infotext === undefined)){
