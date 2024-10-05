@@ -1,6 +1,6 @@
 {
-  "name": "Alexanderbad Wassertemperatur",
-  "short_name": "AlexBad Temp.",
+  "name": "Alexanderbad App",
+  "short_name": "Alexanderbad",
   "theme_color": "#fff",
   "background_color": "#fff",
   "display": "standalone",
