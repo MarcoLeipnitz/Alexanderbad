@@ -146,7 +146,7 @@
 			#navbar > div > div {
 				position: relative;
 				height: 60%;
-				font-size: 2cqh;
+				font-size: 2svh;
 				margin-bottom: .3svh;
 				transition: color var(--tabtranstime);
 			}
@@ -195,7 +195,7 @@
 
 			#contacttab > div > div {
 				width: 100%; 
-				font-size: 3cqh; 
+				font-size: 3svh; 
 				display: inline-flex; 
 				align-items: center; 
 				justify-content: center; 
@@ -227,7 +227,7 @@
 			}
 
 			.articletitlesettings {
-				flex-grow: 100; position: relative; font-size: 2.5cqh;
+				flex-grow: 100; position: relative; font-size: 2.5svh;
 			}
 
 			.articlesqr {
@@ -245,7 +245,7 @@
 			}
 
 			.articledesc {
-				width: 80%; position: relative; font-size: 2.5cqh; left: 10%; overflow-wrap: break-word; text-align: left;
+				width: 80%; position: relative; font-size: 2.5svh; left: 10%; overflow-wrap: break-word; text-align: left;
 			}
 
 		</style>
@@ -262,7 +262,7 @@
 
 	<div id="contacttab">
 		<div style="height: 90%; width: min(90%, 1000px); border-radius: 20px; border: 6.5px solid #DDD; position: relative; overflow: hidden; display: flex; flex-direction: column;">
-			<div style="width: 100%; background-color: #0190e1; font-size: 4.5cqh; display: inline-flex; align-items: center; justify-content: center; color: white; flex-grow: 3; position: relative;">Impressum</div>
+			<div style="width: 100%; background-color: #0190e1; font-size: 4.5svh; display: inline-flex; align-items: center; justify-content: center; color: white; flex-grow: 3; position: relative;">Impressum</div>
 			<div style="text-decoration: underline;">Verantwortlicher für die Webseite</div>
 			<div>Herr Marco Leipnitz</div>
 			<div></div>
@@ -312,11 +312,11 @@
 
     <div id="infobox" style="display: none;">
 			<div style="background-color: white; height: 70svh; width: min(80vw, 80vh); margin-top: 15svh; margin-left: calc((100vw - min(80vw, 80vh))/2); border-radius: 30px;">
-				<div style="height: 15%; width: 100%; background-color: #0190e1; border-radius: 30px 30px 0 0; display:flex; align-items: center; justify-content: center; color: rgb(255, 255, 255); font-size: 5cqh; font-weight: bold;">Hinweis</div>
+				<div style="height: 15%; width: 100%; background-color: #0190e1; border-radius: 30px 30px 0 0; display:flex; align-items: center; justify-content: center; color: rgb(255, 255, 255); font-size: 5svh; font-weight: bold;">Hinweis</div>
         <div style="height: 70%; width: 100%; top: 15%; justify-content: center; overflow-y: auto;">
 			<div id="infohead" style="height: 25%; width: 100%; justify-content: center; font-size: 5vmin; align-items: center; display: flex;"><b></b></div>
 			<div id="infotext" style="height: 75%; width: 80%; top: 25%; left: 10%; justify-content: center; font-size: 4vmin;">
-				<div style="position: relative; display: flex; align-items: center; justify-content: center; color: rgb(100, 100, 100); user-select: none; padding-bottom: 2vh; padding-top: 2vh;" onclick="document.getElementById('readinfo').click()"><label for="checkbox" style="display: none;">Als gelesen markieren</label><input id="readinfo" type="checkbox" style="margin-right: 5%; transform: scale(2.5);">Als gelesen markieren</div>
+				<div style="position: relative; display: flex; align-items: center; justify-content: center; color: rgb(100, 100, 100); user-select: none; padding-bottom: 2vh; padding-top: 2vh;" onclick="readinfocheck(event);"><input id="readinfo" type="checkbox" style="margin-right: 5%; aspect-ratio: 1 / 1; height: 2svh;"><label for="checkbox">Als gelesen markieren</label></div>
 			</div>
         </div>
 				<div style="height: 15%; width: 100%; top: 85%; background-color: rgb(255, 255, 255); border-radius: 0 0 30px 30px; border-top: 1px dashed black; display: flex; align-items: center; justify-content: center; color: rgb(100, 100, 100); font-size: 3vh; cursor: pointer;" onclick="info();">Hinweis schließen</div>
@@ -506,6 +506,10 @@
 				await delay(1500);
 				refreshData(++tries)
 			}   
+		}
+
+		function readinfocheck(e){
+			if(e.target.id != "readinfo") document.getElementById('readinfo').click()
 		}
 
 		const tabs = ["wttab","contacttab","articletab"];
