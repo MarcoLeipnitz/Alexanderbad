@@ -411,23 +411,24 @@
 		}
 
 		async function setupinfo(){
-			await fetch(serverURL + "/timeupdates", {method: "GET",})
-			 	  .then((res) => res.text())
-				  .then((res) => {
-					let notifications = JSON.parse(res);
-					if(!(localStorage.getItem("newsdot") != null && Number(localStorage.getItem("newsdot")) > Number(notifications.news))){
-						document.getElementById("newsdot").style.opacity = "1";
-					}
+			generateAndVisualizeInfo("Wartungsarbeiten", "Sehr geehrte Badegäste<br><br>Aufgrund von Wartungsarbeiten ist die digitale Temperatur aktuell nur sporadisch einsehbar.<br><br>Wir bitten dies zu entschuldigen. <br>Diese kurze Temperaturpause ist aber leider unumgänglich.<br><br>Die genaue Temperatur des Wassers können Sie aber nichtsdestotzotz dem Monitor über der Kasse entnehmen.<br><br><b>Ihr Team aus dem Alexanderbad</b>");
+			// await fetch(serverURL + "/timeupdates", {method: "GET",})
+			//  	  .then((res) => res.text())
+			// 	  .then((res) => {
+			// 		let notifications = JSON.parse(res);
+			// 		if(!(localStorage.getItem("newsdot") != null && Number(localStorage.getItem("newsdot")) > Number(notifications.news))){
+			// 			document.getElementById("newsdot").style.opacity = "1";
+			// 		}
 
-					if(localStorage.getItem("info") == null || Number(localStorage.getItem("info")) < Number(notifications.info)){
-						fetch(serverURL + "/info", {method: "GET",})
-						.then(res => res.text())
-						.then(response => {
-							details = response.split("\n");
-							generateAndVisualizeInfo(details[1], details[2]);
-						});
-					}
-				  });			
+			// 		if(localStorage.getItem("info") == null || Number(localStorage.getItem("info")) < Number(notifications.info)){
+			// 			fetch(serverURL + "/info", {method: "GET",})
+			// 			.then(res => res.text())
+			// 			.then(response => {
+			// 				details = response.split("\n");
+			// 				generateAndVisualizeInfo(details[1], details[2]);
+			// 			});
+			// 		}
+			// 	  });			
 		}
 
 		function generateAndVisualizeInfo(infohead, infotext){
