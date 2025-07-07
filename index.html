@@ -327,7 +327,7 @@
 		</div>
     
     <script>    
-		const serverURL = "https://alexanderbad-webserver.glitch.me";
+		const serverURL = "https://alexanderbadwebserver-tkkv.onrender.com";
 
         let installprompt;
         window.addEventListener('beforeinstallprompt', (e) => {
@@ -465,13 +465,20 @@
 		}
 
 		async function refreshData(tries) {
-			if(localStorage.getItem("wtrefresh") != null && !((Number(new Date()) - localStorage.getItem("wtrefresh")) / 1000 > 300)){
-				let res = localStorage.getItem("wtdata");
-				document.getElementById("TText").innerHTML = res.substring(0,2) + "." + res.charAt(2) + "&degC";
-				document.getElementById("renew").innerText = "Letzte Aktualisierung " + res.substring(3,5) + ":" + res.substring(5);
-				document.getElementById("TText").style.opacity = "1";
-				document.getElementById("renew").style.opacity = "1";
-				return;
+			
+
+			if(localStorage.getItem("wtdata") != null && localStorage.getItem("wtdata").toString().length != 7){
+				let res = JSON.parse(localStorage.getItem("wtdata"));
+				const time = new Date(Number(res.timestamp))
+
+				if(Date.now() - time < 6 * 60 * 1000){
+					console.log(time - Date.now())
+					document.getElementById("TText").innerHTML = res.temperature.toString() + "&degC";
+					document.getElementById("renew").innerText = "Letzte Aktualisierung " + time.getHours().toString().padStart(2, "0") + ":" + time.getMinutes().toString().padStart(2, "0");
+					document.getElementById("TText").style.opacity = "1";
+					document.getElementById("renew").style.opacity = "1";
+					return;
+				}
 			}
 
 			if(tries == 5){
@@ -488,16 +495,16 @@
 							'Accept': 'html/text',
 						},
 				})
-				.then(response => response.text())
+				.then(response => response.json())
 				.then(res => {
-					if(res.length == 6)	res = res.substring(0,2) + "0" + res.substring(2);
-					
-					document.getElementById("TText").innerHTML = res.substring(0,2) + "." + res.charAt(2) + "&degC";
-					document.getElementById("renew").innerText = "Letzte Aktualisierung " + res.substring(3,5) + ":" + res.substring(5);
+					document.getElementById("TText").innerHTML = res.temperature.toString() + "&degC";
+					const time = new Date(Number(res.timestamp))
+
+					document.getElementById("renew").innerText = "Letzte Aktualisierung " + time.getHours().toString().padStart(2, "0") + ":" + time.getMinutes().toString().padStart(2, "0");
 					document.getElementById("TText").style.opacity = "1";
 					document.getElementById("renew").style.opacity = "1";
-					localStorage.setItem("wtrefresh", Number(new Date()));
-					localStorage.setItem("wtdata", res);
+					localStorage.setItem("wtdata", JSON.stringify(res));
+					
 				});
 			} catch (error) {
 				document.getElementById("TText").innerText = "Lädt";
@@ -568,31 +575,31 @@
 
 		let articlesfetched = false;
 		function setuparticles(){
-			if(articlesfetched) return
-			const articletemp = `<div class="articletitlecontainer" onclick="articletoggel([index])">
-				<div class="articletitlesettings">[TITLE]</div>
-				<div class="articlesqr">
-					<svg viewBox="0 0 100 100"><polyline points="40,45 50,55 60,45" fill="none" stroke="black" stroke-width="5"></polyline></svg>
-				</div>
-			</div>
-			<div class="articletextcontainer">
-				<div class="articledesc">[DESC]</div>
-			</div>`;
-			const articlelist = document.getElementById("articlelist");
+			// if(articlesfetched) return
+			// const articletemp = `<div class="articletitlecontainer" onclick="articletoggel([index])">
+			// 	<div class="articletitlesettings">[TITLE]</div>
+			// 	<div class="articlesqr">
+			// 		<svg viewBox="0 0 100 100"><polyline points="40,45 50,55 60,45" fill="none" stroke="black" stroke-width="5"></polyline></svg>
+			// 	</div>
+			// </div>
+			// <div class="articletextcontainer">
+			// 	<div class="articledesc">[DESC]</div>
+			// </div>`;
+			// const articlelist = document.getElementById("articlelist");
 
-			fetch(serverURL + "/news", {method: "GET",})
-			.then((res) => res.text())
-			.then(res => {
-				let articleparts = res.split("\n");
-				for(let i = 1; i < articleparts.length; i += 3){
-					let newarticle = articletemp;
-					newarticle = newarticle.replace("[index]", Math.floor(i / 3) + 2)
-					newarticle = newarticle.replace("[TITLE]", articleparts[i])
-					newarticle = newarticle.replace("[DESC]", articleparts[i + 1])
-					articlelist.innerHTML += newarticle + "\n\n";
-				}
-				articlesfetched = true;
-			});
+			// fetch(serverURL + "/news", {method: "GET",})
+			// .then((res) => res.text())
+			// .then(res => {
+			// 	let articleparts = res.split("\n");
+			// 	for(let i = 1; i < articleparts.length; i += 3){
+			// 		let newarticle = articletemp;
+			// 		newarticle = newarticle.replace("[index]", Math.floor(i / 3) + 2)
+			// 		newarticle = newarticle.replace("[TITLE]", articleparts[i])
+			// 		newarticle = newarticle.replace("[DESC]", articleparts[i + 1])
+			// 		articlelist.innerHTML += newarticle + "\n\n";
+			// 	}
+			// 	articlesfetched = true;
+			// });
 		}
 
 		document.getElementById("navbar").children[1].children[0].children[0].style.backgroundColor = "#4848D9";
