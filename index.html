@@ -411,7 +411,24 @@
 		}
 
 		async function setupinfo(){
-			// generateAndVisualizeInfo("Badesaison 2026", "Sehr geehrte Badegäste,<br><br>Am <b>14.05.2026</b> ist es wieder so weit.<br>Die <b>Badesaison 2026</b> kann starten!<br><br>Wir freuen uns schon darauf, Sie wieder zahlreich bei uns begrüßen zu dürfen.<br><br>Auf eine weitere unvergessliche Saison!<br><br><b>Ihr Team aus der Alexanderbad</b>");
+			generateAndVisualizeInfo(
+				"Saisonendspurt 2026",
+`Sehr geehrte Badegäste,
+
+Nach einer schönen und sonnigen Saison neigt sich der Sommer allmählich dem Ende zu.
+
+Doch bis zum letzten Badetag, dem <b>18.09.2026</b>, freuen wir uns darauf, Sie bei uns begrüßen zu dürfen! 
+Bis dahin bitten wir Sie darum Ihre Liegen zu entfernen und Ihre Spinde zu leeren!
+
+Beachten Sie, dass ab dem <b>14.09.2026</b> die Öffnungszeiten auf <b>9 Uhr</b> bis <b>19 Uhr</b> verkürzt werden.
+Der letzte Eintritt kann spätestens <b>18:15 Uhr</b> erfolgen!
+
+Um den Abschied zu erleichtern, laden wir Sie herzlich zum Hundeschwimmen am <b>19.09.2026</b> ein.
+Dieses wird von <b>10 Uhr</b> bis <b>17 Uhr</b> stattfinden.
+
+Viele Grüße
+Ihr Team aus dem Alexanderbad`.replaceAll("\n", "<br>")
+			);
 			// await fetch(serverURL + "/timeupdates", {method: "GET",})
 			//  	  .then((res) => res.text())
 			// 	  .then((res) => {
